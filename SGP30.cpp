@@ -244,6 +244,18 @@ void SGP30::setAbsHumidity(float AbsoluteHumidity)
 
 /////////////////////////////////////////////////////
 //
+// MISC
+//
+int SGP30::lastError()
+{
+  int error = _error;
+  _error = SGP30_OK;
+  return error;
+}
+
+
+/////////////////////////////////////////////////////
+//
 // PRIVATE
 //
 int SGP30::_command(uint16_t cmd)
