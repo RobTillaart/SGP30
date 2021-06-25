@@ -232,7 +232,7 @@ float SGP30::setRelHumidity(float T, float RH)  // P10
 }
 
 
-void SGP30::setAbsHumidity(uint16_t AH)
+void SGP30::setAbsHumidity(float AbsoluteHumidity)
 {
   uint16_t AH = AbsoluteHumidity;
   uint8_t tmp = (AbsoluteHumidity - AH) * 256;
