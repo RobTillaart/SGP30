@@ -10,10 +10,10 @@
 #include "SGP30.h"
 
 
-SGP30 SGP(0x58);
-
+SGP30 SGP;
 
 uint8_t count = 0;
+
 
 void setup()
 {
@@ -45,6 +45,7 @@ void setup()
   Serial.println();
 }
 
+
 void loop()
 {
   SGP.measure(true);      // returns false if no measurement is made 
@@ -67,5 +68,6 @@ void loop()
 
   delay(1000);
 }
+
 
 // -- END OF FILE --

@@ -10,11 +10,12 @@
 #include "SGP30.h"
 
 
-SGP30 SGP(0x58);
+SGP30 SGP;
 
 uint8_t count = 0;
 
 uint32_t lastTime = 0;
+
 
 void setup()
 {
@@ -44,6 +45,7 @@ void setup()
   SGP.request();
 }
 
+
 void loop()
 {
   if (SGP.read())
@@ -66,5 +68,6 @@ void loop()
     SGP.request();
   }
 }
+
 
 // -- END OF FILE --

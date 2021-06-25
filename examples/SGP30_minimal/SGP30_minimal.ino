@@ -11,7 +11,7 @@
 #include "SGP30.h"
 
 
-SGP30 SGP(0x58);
+SGP30 SGP;
 
 
 void setup()
@@ -23,6 +23,7 @@ void setup()
   SGP.begin();
 }
 
+
 void loop()
 {
   SGP.measure(false);      // returns false if no measurement is made 
@@ -33,5 +34,6 @@ void loop()
   Serial.println();
   delay(1000);
 }
+
 
 // -- END OF FILE --
