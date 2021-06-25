@@ -47,7 +47,7 @@ unittest_teardown()
 
 unittest(test_constructor)
 {
-  fprintf(stderr, "VERSION: %s\n", SET_LIB_VERSION);
+  fprintf(stderr, "VERSION: %s\n", SGP30_LIB_VERSION);
   SGP30 SGP;
   
   assertTrue(SGP.begin());
@@ -68,7 +68,7 @@ unittest(test_defaults_core)
 {
   SGP30 SGP;
 
-  assertEqual(0x00, SGP.getCo2());
+  assertEqual(0x00, SGP.getCO2());
   assertEqual(0x00, SGP.getTVOC());
   assertEqual(0x00, SGP.getH2());
   assertEqual(0x00, SGP.getEthanol());
