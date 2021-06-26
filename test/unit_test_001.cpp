@@ -83,13 +83,13 @@ unittest(test_sref_H2)
 
   assertEqual(13119, SGP.getSrefH2());
 
-  SGP.setSREFH2(0);
+  SGP.setSrefFH2(0);
   assertEqual(0, SGP.getSrefH2());
 
-  SGP.setSREFH2(10000);
+  SGP.setSrefFH2(10000);
   assertEqual(10000, SGP.getSrefH2());
   
-  SGP.setSREFH2();
+  SGP.setSrefFH2();
   assertEqual(13119, SGP.getSrefH2());
 }
 
@@ -100,13 +100,13 @@ unittest(test_sref_Ethanol)
 
   assertEqual(18472, SGP.getSrefEthanol());
 
-  SGP.setSREFEthanol(0);
+  SGP.setSrefEthanol(0);
   assertEqual(0, SGP.getSrefEthanol());
 
-  SGP.setSREFEthanol(10000);
+  SGP.setSrefEthanol(10000);
   assertEqual(10000, SGP.getSrefEthanol());
   
-  SGP.setSREFEthanol();
+  SGP.setSrefEthanol();
   assertEqual(18472, SGP.getSrefEthanol());
 }
 
