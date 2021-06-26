@@ -4,7 +4,7 @@
 // PURPOSE: demo SGP30
 //    DATE: 2021-06-25
 //     URL: https://github.com/RobTillaart/SGP30
-//          http://adafruit ...
+//          https://www.adafruit.com/product/3709
 
 
 #include "SGP30.h"

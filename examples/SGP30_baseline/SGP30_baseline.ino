@@ -1,8 +1,8 @@
 //
-//    FILE: SGP30_demo.ino
+//    FILE: SGP30_baseline.ino
 //  AUTHOR: Rob Tillaart
 // PURPOSE: demo SGP30
-//    DATE: 2021-06-24
+//    DATE: 2021-06-25
 //     URL: https://github.com/RobTillaart/SGP30
 //          https://www.adafruit.com/product/3709
 
@@ -27,31 +27,28 @@ void setup()
   Serial.println(SGP30_LIB_VERSION);
   Serial.println();
 
-  Serial.print("BEGIN:\t");
-  Serial.println(SGP.begin());
-  Serial.print("TEST:\t");
-  Serial.println(SGP.measureTest());
-  Serial.print("FSET:\t");
-  Serial.println(SGP.getFeatureSet(), HEX);
-  SGP.GenericReset();
-
-  Serial.print("DEVID:\t");
-  SGP.getID();
-  for (int i = 0; i < 6; i++)
-  {
-    if (SGP._id[i] < 0x10) Serial.print(0);     // ÏD: 00.00.01.9B.57.23
-    Serial.print(SGP._id[i], HEX);
-  }
-  Serial.println();
+  SGP.begin();
 }
 
 
 void loop()
 {
-  SGP.measure(true);      // returns false if no measurement is made 
+  SGP.measure(true);      // returns false if no measurement is made
 
   if (count == 0)
   {
+    uint16_t bl_co2 = 0;
+    uint16_t bl_tvoc = 0;
+    bool b = SGP.getBaseline(&bl_co2, &bl_tvoc);
+
+    Serial.println();
+    Serial.print("BASELINE GET: \t");
+    Serial.println(b);
+    Serial.print("BASELINE CO2: \t");
+    Serial.println(bl_co2);
+    Serial.print("BASELINE VOC: \t");
+    Serial.println(bl_tvoc);
+
     Serial.println("\nTVOC \teCO2 \tH2 \tETH");
     count = 10;
   }

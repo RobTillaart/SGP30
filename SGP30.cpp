@@ -1,7 +1,7 @@
 //
 //    FILE: SGP30.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.0
+// VERSION: 0.1.1
 //    DATE: 2021-06-24
 // PURPOSE: SGP30 library for Arduino
 //     URL: https://github.com/RobTillaart/SGP30
@@ -9,7 +9,7 @@
 //
 //  HISTORY:
 //  0.1.0   2021-06-24 initial version
-//
+//  0.1.1   2021-06-26 add get/setBaseline ++
 
 
 #include "SGP30.h"
@@ -187,6 +187,7 @@ void SGP30::requestRaw()
   _command(0x2050);
 }
 
+
 bool SGP30::readRaw()
 {
   if (_lastRequest == 0) return false;
@@ -202,13 +203,11 @@ bool SGP30::readRaw()
   _h2      =  _wire->read() << 8;
   _h2      += _wire->read();
               _wire->read();        // skip crc
-
   _ethanol =  _wire->read() << 8;
   _ethanol += _wire->read();
               _wire->read();        // skip crc
   return true;
 }
-
 
 
 /////////////////////////////////////////////////////
@@ -238,7 +237,32 @@ void SGP30::setAbsHumidity(float AbsoluteHumidity)
   uint8_t tmp = (AbsoluteHumidity - AH) * 256;
   AH = (AH << 8) | tmp;
 
-  _setCommand(0x2061, AH);   // P 11
+  _command(0x2061, AH);     // P 11
+}
+
+
+void SGP30::setBaseline(uint16_t CO2, uint16_t TVOC)
+{
+  _command(0x201E, CO2, TVOC);
+}
+
+
+bool SGP30::getBaseline(uint16_t *CO2, uint16_t *TVOC)
+{
+  _command(0x2015);
+  // TODO error handling
+  // TODO CRC
+  if (_wire->requestFrom(_address, (uint8_t)6) != 6)
+  {
+    return false;
+  }
+  *CO2  =  _wire->read() << 8;
+  *CO2  += _wire->read();
+           _wire->read();        // skip crc
+  *TVOC =  _wire->read() << 8;
+  *TVOC += _wire->read();
+           _wire->read();        // skip crc
+  return true;
 }
 
 
@@ -268,14 +292,30 @@ int SGP30::_command(uint16_t cmd)
 }
 
 
-int SGP30::_setCommand(uint16_t cmd, uint16_t val)
+int SGP30::_command(uint16_t cmd, uint16_t v1)
 {
   _wire->beginTransmission(_address);
   _wire->write(cmd >> 8);
   _wire->write(cmd & 0xFF);
-  _wire->write(val >> 8);
-  _wire->write(val & 0xFF);
+  _wire->write(v1 >> 8);
+  _wire->write(v1 & 0xFF);
   _wire->write(_CRC8(val));
+  _error = _wire->endTransmission();
+  return _error;
+}
+
+
+int SGP30::_command(uint16_t cmd, uint16_t v1, uint16_t v2)
+{
+  _wire->beginTransmission(_address);
+  _wire->write(cmd >> 8);
+  _wire->write(cmd & 0xFF);
+  _wire->write(v1 >> 8);
+  _wire->write(v1 & 0xFF);
+  _wire->write(_CRC8(v1));
+  _wire->write(v2 >> 8);
+  _wire->write(v2 & 0xFF);
+  _wire->write(_CRC8(v2));
   _error = _wire->endTransmission();
   return _error;
 }
@@ -288,7 +328,8 @@ uint8_t SGP30::_CRC8(uint16_t data)
   uint8_t val[2];
   val[0] = data >> 8;
   val[1] = data & 0xFF;
-  uint8_t crc = 0xFF;
+
+  uint8_t crc = 0xFF;             // start value
   for(uint8_t i = 0; i < 2; i++) 
   {
     crc ^= val[i];
