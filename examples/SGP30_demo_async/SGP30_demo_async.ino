@@ -34,13 +34,6 @@ void setup()
   Serial.println(SGP.getFeatureSet(), HEX);
   SGP.GenericReset();
 
-  Serial.print("DEVID:\t");
-  SGP.getID();
-  for (int i = 0; i < 6; i++)
-  {
-    if (SGP._id[i] < 0x10) Serial.print(0);     // ÏD: 00.00.01.9B.57.23
-    Serial.print(SGP._id[i], HEX);
-  }
   Serial.println();
   SGP.request();
 }

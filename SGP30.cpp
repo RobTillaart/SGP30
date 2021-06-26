@@ -1,15 +1,17 @@
 //
 //    FILE: SGP30.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.1
+// VERSION: 0.1.2
 //    DATE: 2021-06-24
 // PURPOSE: SGP30 library for Arduino
 //     URL: https://github.com/RobTillaart/SGP30
 //          https://www.adafruit.com/product/3709
 //
 //  HISTORY:
-//  0.1.0   2021-06-24 initial version
-//  0.1.1   2021-06-26 add get/setBaseline ++
+//  0.1.0   2021-06-24  initial version
+//  0.1.1   2021-06-26  add get/setBaseline ++
+//  0.1.2   2021-06-26  experimental add units  H2 + Ethanol
+//
 
 
 #include "SGP30.h"
@@ -207,6 +209,22 @@ bool SGP30::readRaw()
   _ethanol += _wire->read();
               _wire->read();        // skip crc
   return true;
+}
+
+
+// experimental - datasheet P2 
+// 1.953125e-3 = 1/512
+float SGP30::getH2()
+{
+  float cref = 0.5;  // ppm
+  return cref * exp((_srefH2 - _h2) * 1.953125e-3);
+}
+
+
+float SGP30::getEthanol()
+{
+  float cref = 0.4;  // ppm
+  return cref * exp((_srefEth - _ethanol) * 1.953125e-3);
 }
 
 
