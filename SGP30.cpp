@@ -299,7 +299,7 @@ int SGP30::_command(uint16_t cmd, uint16_t v1)
   _wire->write(cmd & 0xFF);
   _wire->write(v1 >> 8);
   _wire->write(v1 & 0xFF);
-  _wire->write(_CRC8(val));
+  _wire->write(_CRC8(v1));
   _error = _wire->endTransmission();
   return _error;
 }

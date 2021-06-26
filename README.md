@@ -69,13 +69,15 @@ The library caches the last read values, and these are the functions to access t
 - **uint16_t getTVOC()** gets the TVOC concentration (ppb)
 - **uint16_t getCO2()** gets the CO2 **equivalent** concentration (ppm)
 - **uint16_t getH2()** gets the H2 concentration. Units unknown.
-- **uint16_t getEthanol()** gets the Ethanol concnetration. Units unknown.
+- **uint16_t getEthanol()** gets the Ethanol concentration. Units unknown.
 
 
 ### Calibration
 
-- **float setRelHumidity(float T, float RH)** sets the compensation for temperature and **relative** humidity. These values can be obtained e.g. from an SHT30, DHT22 or similar sensor.
-- **void setAbsHumidity(float AbsoluteHumidity)** sets the compensation for **absolute** humidity. 
+Check the datasheet for operating range, figure 7.
+
+- **float setRelHumidity(float T, float RH)** sets the compensation for temperature (5-55°C) and **relative** humidity (10-95%). These values can be obtained e.g. from an SHT30, DHT22 or similar sensor.
+- **void setAbsHumidity(float AbsoluteHumidity)** sets the compensation for **absolute** humidity. Concentration is in gram per cubic meter (g/m3)
 
 
 ### Baseline functions
