@@ -71,8 +71,8 @@ public:
   bool     getBaseline(uint16_t *CO2, uint16_t *TVOC);
   
   // See Inceptive Baseline for TVOC measurements in data sheet
-  void     setBaseline(uint16_t TVOC);
-  uint16_t getTVOCBaseline(uint16_t *TVOC);
+  void     setTVOCBaseline(uint16_t TVOC);
+  bool     getTVOCBaseline(uint16_t *TVOC);
 
 
   // experimental

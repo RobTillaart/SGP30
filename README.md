@@ -111,7 +111,7 @@ Note: if the sensor has no reads done, these values tend to go to zero. This is 
 
 For faster accurate results for the TVOC under bad air conditions, read **Inceptive Baseline for TVOC measurements**
 (not tested)
-- **uint16_t getTVOCBaseline()** retrieves the TVOC start value from the sensor.
+- **bool getTVOCBaseline(uint16_t \*TVOC)** retrieves the TVOC start value from the sensor.
 - **void setTVOCBaseline(uint16_t TVOC)** sets the TVOC start value.
 
 
