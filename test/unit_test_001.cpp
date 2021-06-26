@@ -72,8 +72,8 @@ unittest(test_defaults_core)
   assertEqual(0x00, SGP.getTVOC());
   assertEqual(0x00, SGP.getH2_raw());
   assertEqual(0x00, SGP.getEthanol_raw());
-  assertEqualFloat(0, SGP.getH2(), 0.001);
-  assertEqualFloat(0, SGP.getEthanol(), 001);
+  assertEqualFloat(6.71302e+10, SGP.getH2(), 1e7);
+  assertEqualFloat(1.86462e+15, SGP.getEthanol(), 1e12);
 }
 
 
@@ -81,16 +81,16 @@ unittest(test_sref_H2)
 {
   SGP30 SGP;
 
-  assertEqual(13119, SGP.getSREFH2());
+  assertEqual(13119, SGP.getSrefH2());
 
   SGP.setSREFH2(0);
-  assertEqual(0, SGP.getSREFH2());
+  assertEqual(0, SGP.getSrefH2());
 
   SGP.setSREFH2(10000);
-  assertEqual(10000, SGP.getSREFH2());
+  assertEqual(10000, SGP.getSrefH2());
   
   SGP.setSREFH2();
-  assertEqual(13119, SGP.getSREFH2());
+  assertEqual(13119, SGP.getSrefH2());
 }
 
 
@@ -98,16 +98,16 @@ unittest(test_sref_Ethanol)
 {
   SGP30 SGP;
 
-  assertEqual(18472, SGP.getSREFEthanol());
+  assertEqual(18472, SGP.getSrefEthanol());
 
   SGP.setSREFEthanol(0);
-  assertEqual(0, SGP.getSREFEthanol());
+  assertEqual(0, SGP.getSrefEthanol());
 
   SGP.setSREFEthanol(10000);
-  assertEqual(10000, SGP.getSREFEthanol());
+  assertEqual(10000, SGP.getSrefEthanol());
   
   SGP.setSREFEthanol();
-  assertEqual(18472, SGP.getSREFEthanol());
+  assertEqual(18472, SGP.getSrefEthanol());
 }
 
 

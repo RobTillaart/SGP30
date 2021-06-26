@@ -127,10 +127,10 @@ One should use these functions more as a relative indication than as an absolute
 
 The used references are based upon (1) averaging raw data in outside air at 22°C @ 1 meter and (2) the assumption that this is 0.4 resp 0.5 ppm. (Note only 1 significant digit) as mentioned is datasheet P2.
 
-- **void  setSREFH2(uint16_t s = 13119)** // 13119 is my measurement.
-- **uint16_t getSREFH2()** returns value set.
-- **void setSREFEthanol(uint16_t s = 18472)** // 18472 is my measurement
-- **uint16_t getSREFEthanol()** returns value set
+- **void  setSrefH2(uint16_t s = 13119)** // 13119 is my measurement.
+- **uint16_t getSrefH2()** returns value set.
+- **void setSrefEthanol(uint16_t s = 18472)** // 18472 is my measurement
+- **uint16_t getSrefEthanol()** returns value set
 
 
 ## Todo

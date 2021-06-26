@@ -78,11 +78,11 @@ public:
 
   // experimental
   // 13119 = average raw measured outside 22°C  (example)
-  void      setSREFH2(uint16_t s = 13119)      { _srefH2 = s; };
-  uint16_t  getSREFH2()                        { return _srefH2; };
+  void      setSrefH2(uint16_t s = 13119)      { _srefH2 = s; };
+  uint16_t  getSrefH2()                        { return _srefH2; };
   // 18472 = average raw measured outside 22°C  (example)
-  void      setSREFEthanol(uint16_t s = 18472) { _srefEth = s; };
-  uint16_t  getSREFEthanol()                   { return _srefEth; };
+  void      setSrefEthanol(uint16_t s = 18472) { _srefEth = s; };
+  uint16_t  getSrefEthanol()                   { return _srefEth; };
 
 
   // MISC
