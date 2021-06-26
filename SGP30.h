@@ -2,7 +2,7 @@
 //
 //    FILE: SGP30.h
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.0
+// VERSION: 0.1.1
 //    DATE: 2021-06-24
 // PURPOSE: SGP30 library for Arduino
 //     URL: https://github.com/RobTillaart/SGP30
@@ -12,7 +12,7 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-#define SGP30_LIB_VERSION         (F("0.1.0"))
+#define SGP30_LIB_VERSION         (F("0.1.1"))
 
 #define SGP30_OK                  0x00
 
@@ -65,18 +65,13 @@ public:
   // set Abs Hum to 0 to disables it...
   void     setAbsHumidity(float AbsoluteHumidity);
 
-  // TODO NEXT RELEASE
+  void     setBaseline(uint16_t CO2, uint16_t TVOC);
+  bool     getBaseline(uint16_t *CO2, uint16_t *TVOC);
+
 /*
-  something like this
-
-  void     setAcqBase() {};   // 0x201e
-  void     getAcqBase() {};   // 0x2015
-  void     setTVOCBase() {};  // 0x2077
-  void     getTVOCBase() {};  // 0x20B3
-
-  split getAcqBase in 2 calls?
-  uint16_t getCO2base();
-  uint16_t getTVOCbase();
+  // faster startup
+  void     setTVOCStarter() {};  // 0x2077
+  void     getTVOCStarter() {};  // 0x20B3
 */
 
 
@@ -92,8 +87,10 @@ private:
   uint32_t _lastTime = 0;
   uint32_t _lastRequest = 0;
 
+  // TODO improve?
   int      _command(uint16_t cmd);
-  int      _setCommand(uint16_t cmd, uint16_t val);
+  int      _command(uint16_t cmd, uint16_t v1);
+  int      _command(uint16_t cmd, uint16_t v1, uint16_t v2);
   uint8_t  _CRC8(uint16_t val);
   void     _init();
 

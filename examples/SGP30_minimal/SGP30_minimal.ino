@@ -4,7 +4,7 @@
 // PURPOSE: demo SGP30
 //    DATE: 2021-06-24
 //     URL: https://github.com/RobTillaart/SGP30
-//          http://adafruit ...
+//          https://www.adafruit.com/product/3709
 
 //  minimal sketch, can be used with IDE->tools->plotter
 

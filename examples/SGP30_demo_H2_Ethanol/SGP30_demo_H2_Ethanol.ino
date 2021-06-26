@@ -1,26 +1,29 @@
 //
-//    FILE: SGP30_demo_async.ino
+//    FILE: SGP30_demo_H2_Ethanol.ino
 //  AUTHOR: Rob Tillaart
 // PURPOSE: demo SGP30
 //    DATE: 2021-06-24
 //     URL: https://github.com/RobTillaart/SGP30
 //          https://www.adafruit.com/product/3709
 
+// 20 samples per second RAW data
+
 
 #include "SGP30.h"
 
 
 SGP30 SGP;
-
 uint8_t count = 0;
-
 uint32_t lastTime = 0;
 
 
 void setup()
 {
   Serial.begin(115200);
-  while (!Serial) delay(1);
+  while (!Serial) {
+    delay(1);
+    yield();
+  };
 
   Serial.print(__FILE__);
   Serial.println(SGP30_LIB_VERSION);
@@ -30,43 +33,32 @@ void setup()
   Serial.println(SGP.begin());
   Serial.print("TEST:\t");
   Serial.println(SGP.measureTest());
-  Serial.print("FSET:\t");
-  Serial.println(SGP.getFeatureSet(), HEX);
-  SGP.GenericReset();
-
-  Serial.print("DEVID:\t");
-  SGP.getID();
-  for (int i = 0; i < 6; i++)
-  {
-    if (SGP._id[i] < 0x10) Serial.print(0);     // ÏD: 00.00.01.9B.57.23
-    Serial.print(SGP._id[i], HEX);
-  }
-  Serial.println();
-  SGP.request();
 }
 
 
 void loop()
 {
-  if (SGP.read())
+  if (SGP.readRaw())
   {
     if (count == 0)
     {
-      Serial.println("\nTVOC \teCO2");
+      Serial.println("\nH2 \tEthanol");
       count = 10;
     }
-    Serial.print(SGP.getTVOC());
+    Serial.print(SGP.getH2());
     Serial.print("\t");
-    Serial.print(SGP.getCO2());
+    Serial.print(SGP.getEthanol());
     Serial.println();
     count--;
   }
 
-  if (millis() - lastTime > 1000)
+
+  if (millis() - lastTime >= 50)
   {
     lastTime = millis();
-    SGP.request();
+    SGP.requestRaw();
   }
+
 }
 
 
