@@ -83,13 +83,13 @@ unittest(test_sref_H2)
 
   assertEqual(13119, SGP.getSrefH2());
 
-  SGP.setSrefFH2(0);
+  SGP.setSrefH2(0);
   assertEqual(0, SGP.getSrefH2());
 
-  SGP.setSrefFH2(10000);
+  SGP.setSrefH2(10000);
   assertEqual(10000, SGP.getSrefH2());
   
-  SGP.setSrefFH2();
+  SGP.setSrefH2();
   assertEqual(13119, SGP.getSrefH2());
 }
 
