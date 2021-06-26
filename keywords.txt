@@ -35,10 +35,10 @@ setAbsHumidity	KEYWORD2
 setBaseline	KEYWORD2
 getBaseline	KEYWORD2
 
-setSREFH2	KEYWORD2
-getSREFH2	KEYWORD2
-setSREFEthanol	KEYWORD2
-getSREFEthanol	KEYWORD2
+setSrefH2	KEYWORD2
+getSrefH2	KEYWORD2
+setSrefEthanol	KEYWORD2
+getSrefEthanol	KEYWORD2
 
 lastError	KEYWORD2
 
