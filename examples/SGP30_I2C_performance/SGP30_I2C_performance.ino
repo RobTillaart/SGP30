@@ -35,7 +35,7 @@ void setup()
 
   // has 12 millisecond delay build in...
   Serial.println("\nMEASURE()");
-  for (uint32_t sp = 100000; sp <= 600000; sp += 50000)
+  for (uint32_t sp = 100000; sp <= 500000; sp += 50000)
   {
     Wire.setClock(sp);
     start = micros();
@@ -49,7 +49,7 @@ void setup()
 
   // has 40 millisecond delay build in...
   Serial.println("\nMEASURE()");
-  for (uint32_t sp = 100000; sp <= 600000; sp += 50000)
+  for (uint32_t sp = 100000; sp <= 500000; sp += 50000)
   {
     Wire.setClock(sp);
     start = micros();
@@ -63,7 +63,7 @@ void setup()
 
 
   Serial.println("\nREQUEST()");
-  for (uint32_t sp = 100000; sp <= 600000; sp += 50000)
+  for (uint32_t sp = 100000; sp <= 500000; sp += 50000)
   {
     Wire.setClock(sp);
     start = micros();
@@ -76,7 +76,7 @@ void setup()
   }
 
   Serial.println("\nREAD()");
-  for (uint32_t sp = 100000; sp <= 600000; sp += 50000)
+  for (uint32_t sp = 100000; sp <= 500000; sp += 50000)
   {
     Wire.setClock(sp);
     start = micros();
@@ -88,9 +88,6 @@ void setup()
     SGP.request();
     delay(1000);
   }
-
-
-
 }
 
 

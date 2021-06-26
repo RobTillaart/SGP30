@@ -2,7 +2,7 @@
 //
 //    FILE: SGP30.h
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.1
+// VERSION: 0.1.2
 //    DATE: 2021-06-24
 // PURPOSE: SGP30 library for Arduino
 //     URL: https://github.com/RobTillaart/SGP30
@@ -12,7 +12,7 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-#define SGP30_LIB_VERSION         (F("0.1.1"))
+#define SGP30_LIB_VERSION         (F("0.1.2"))
 
 #define SGP30_OK                  0x00
 
@@ -51,11 +51,13 @@ public:
   void     requestRaw();
   bool     readRaw();
 
-  // get the data
-  uint16_t getTVOC()    { return _tvoc; };
-  uint16_t getCO2()     { return _co2; };
-  uint16_t getH2()      { return _h2; }
-  uint16_t getEthanol() { return _ethanol; };
+  // get the data                                  // UNITS
+  uint16_t getTVOC()        { return _tvoc; };     // PPB
+  uint16_t getCO2()         { return _co2; };      // PPM
+  uint16_t getH2_raw()      { return _h2; };       // UNKNOWN
+  uint16_t getEthanol_raw() { return _ethanol; };  // UNKNOWN
+  float getH2();            // experimental        // PPM
+  float getEthanol();       // experimental        // PPM
 
 
   // CALIBRATION - read datasheet
@@ -73,6 +75,14 @@ public:
   void     setTVOCStarter() {};  // 0x2077
   void     getTVOCStarter() {};  // 0x20B3
 */
+
+  // experimental
+  // 13119 = average raw measured outside 22°C  (example)
+  void      setSrefH2(uint16_t s = 13119)      { _srefH2 = s; };
+  uint16_t  getSrefH2()                        { return _srefH2; };
+  // 18472 = average raw measured outside 22°C  (example)
+  void      setSrefEthanol(uint16_t s = 18472) { _srefEth = s; };
+  uint16_t  getSrefEthanol()                   { return _srefEth; };
 
 
   // MISC
@@ -98,6 +108,11 @@ private:
   uint16_t _co2;
   uint16_t _h2;
   uint16_t _ethanol;
+  
+  // experimental
+  // average raw values measured outside 22°C 
+  uint16_t _srefH2  = 13119;
+  uint16_t _srefEth = 18472;
 
   TwoWire*  _wire;
 };

@@ -26,14 +26,19 @@ getTVOC	KEYWORD2
 getCO2	KEYWORD2
 getH2	KEYWORD2
 getEthanol	KEYWORD2
+getH2_raw	KEYWORD2
+getEthanol_raw	KEYWORD2
 
 setRelHumidity	KEYWORD2
 setAbsHumidity	KEYWORD2
 
-setAcqBase	KEYWORD2
-getAcqBase	KEYWORD2
-setTVOCBase	KEYWORD2
-getTVOCBase	KEYWORD2
+setBaseline	KEYWORD2
+getBaseline	KEYWORD2
+
+setSrefH2	KEYWORD2
+getSrefH2	KEYWORD2
+setSrefEthanol	KEYWORD2
+getSrefEthanol	KEYWORD2
 
 lastError	KEYWORD2
 

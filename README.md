@@ -7,26 +7,45 @@
 
 Arduino library for SGP30 environment sensor
 
-Warning: experimental, 0.1.0 is functional not complete.
+Warning: experimental, library is not functional complete yet.
+
 
 ## Description
 
-The SGP30 from Sensirion is an environment sensor that measures H2 and Ethanol in the air. From these numbers an intern algorithm derives an CO2 equivalent and a TVOC measurement. 
+The SGP30 from Sensirion is an environment sensor that measures H2 and Ethanol in the air. From these numbers an intern algorithm in the sensor derives an CO2 equivalent and a TVOC measurement. The library has an experimental conversion for H2 and Ethanol.
 
-The CO2 units are ppm, the TVOC units are ppb. Units for H2 and Ethanol are unknown. For larger concentrations the resolution drops, see datasheet.
-
-The CO2 and TVOC values can be read up to once per second (1 Hz). Ethanol and H2, the raw data can be sampled up to 40 Hz.
+The CO2 units are ppm, the TVOC units are ppb. Units for H2 and Ethanol are ppm. Note that for larger concentrations the resolution of the measurements drops, see datasheet.
 
 The library supports 2 types of interfaces, a synchronous and an asynchronous interface. The sync interface is blocking for up to 40 milliseconds which was enough to trigger the implementation of an async interface. Note: the sync interface is implemented with the async interface.
 
-The SGP30 works with I2C bus at 100 KHz and 400 KHz. In a short test it worked well up to 600 KHz. A faster I2C clock does not give the sync interface much (relative) gain, however for the async the relative gain is much more.
+
+#### Sample frequency
+
+The CO2 and TVOC values can be read up to once per second (1 Hz). Ethanol and H2, the raw data can be sampled up to 40 Hz.
 
 It may take up to 10 seconds (maybe more) before the sensor produces real data.
 
 
-#### multi sensors.
+#### I2C performance
 
-The sensor has a fixed I2C address so only one sensor per I2C bus can be used. If one needs more, one should use an I2C multiplexer or an MCU with multiple I2C buses or switch the VCC as a sort of ChipSelect signal.
+The SGP30 works with I2C bus at 100 KHz and 400 KHz. In a short test it worked well up to 500 KHz. A faster I2C clock does not give the sync interface much (relative) gain, however for the async the relative gain is much more.
+
+(indicative test run with UNO - IDE 1.8.13, CO2 and TVOC only, times in micros)
+
+|  I2C speed | measure() | request() | read() |
+|:----------:|:---------:|:---------:|:------:|
+|  100 kHz   |   12360   |    336    |   732  |
+|  200 kHz   |   12212   |    196    |   408  |
+|  300 kHz   |   12168   |    144    |   300  |
+|  400 kHz   |   12140   |    132    |   264  |
+|  500 kHz   |   12128   |    124    |   236  |
+
+Note the blocking of measure().
+
+
+#### Multiple sensors.
+
+The SGP30 sensor has a fixed I2C address so only one sensor per I2C bus can be used. If one needs more, one should use an I2C multiplexer or an MCU with multiple I2C buses or switch the VCC as a sort of ChipSelect signal.
 
 
 ## Interface
@@ -68,15 +87,15 @@ The library caches the last read values, and these are the functions to access t
 
 - **uint16_t getTVOC()** gets the TVOC concentration (ppb)
 - **uint16_t getCO2()** gets the CO2 **equivalent** concentration (ppm)
-- **uint16_t getH2()** gets the H2 concentration. Units unknown.
-- **uint16_t getEthanol()** gets the Ethanol concentration. Units unknown.
+- **uint16_t getH2_raw()** gets the raw H2. Units unknown.
+- **uint16_t getEthanol_raw()** gets the raw Ethanol. Units unknown.
 
 
 ### Calibration
 
 Check the datasheet for operating range, figure 7.
 
-- **float setRelHumidity(float T, float RH)** sets the compensation for temperature (5-55°C) and **relative** humidity (10-95%). These values can be obtained e.g. from an SHT30, DHT22 or similar sensor.
+- **float setRelHumidity(float T, float RH)** sets the compensation for temperature (5-55°C) and **relative** humidity (10-95%). These values can be obtained e.g. from an SHT30, DHT22 or similar sensor. The function returns the absolute humidity. 
 - **void setAbsHumidity(float AbsoluteHumidity)** sets the compensation for **absolute** humidity. Concentration is in gram per cubic meter (g/m3)
 
 
@@ -86,8 +105,8 @@ The baseline functions give the sensor a reference value. After running in a kno
 
 Note: if the sensor has no reads done, these values tend to go to zero. This is because the baselines are based upon recent reads.
 
-- **bool getBaseline(uint16_t *CO2, uint16_t *TVOC)**
-- **void setBaseline(uint16_t CO2, uint16_t TVOC)** 
+- **bool getBaseline(uint16_t \*CO2, uint16_t \*TVOC)** retrieves the baseline values from the sensor.
+- **void setBaseline(uint16_t CO2, uint16_t TVOC)** sets the baseline values.
 
 
 ### Misc
@@ -95,15 +114,31 @@ Note: if the sensor has no reads done, these values tend to go to zero. This is 
 - **int lastError()** returns last error. (needs rework)
 
 
+### Experimental
+
+use at own risk.
+
+Since 0.1.2 the library has experimental support for H2 and Ethanol concentration in ppm. 
+
+One should use these functions more as a relative indication than as an absolute measurement as it is definitely not calibrated.
+
+- **float getH2()** gets the H2 concentration. Units ppm.
+- **float getEthanol()** gets the Ethanol concentration. Units ppm.
+
+The used references are based upon (1) averaging raw data in outside air at 22°C @ 1 meter and (2) the assumption that this is 0.4 resp 0.5 ppm. (Note only 1 significant digit) as mentioned is datasheet P2.
+
+- **void  setSrefH2(uint16_t s = 13119)** // 13119 is my measurement.
+- **uint16_t getSrefH2()** returns value set.
+- **void setSrefEthanol(uint16_t s = 18472)** // 18472 is my measurement
+- **uint16_t getSrefEthanol()** returns value set
+
+
 ## Todo
 
 - redo **getID()**
 - redo **lastError()**
-- should **getFeatureSet()** become **bool checkFeatureSet()**?
 - implement the TVOC starter baseline.
 - test test test ....
-- get units H2 right if possible
-- get units Ethanol right if possible
 - CRC handling
 - error handling
 

@@ -70,11 +70,48 @@ unittest(test_defaults_core)
 
   assertEqual(0x00, SGP.getCO2());
   assertEqual(0x00, SGP.getTVOC());
-  assertEqual(0x00, SGP.getH2());
-  assertEqual(0x00, SGP.getEthanol());
+  assertEqual(0x00, SGP.getH2_raw());
+  assertEqual(0x00, SGP.getEthanol_raw());
+  assertEqualFloat(6.71302e+10, SGP.getH2(), 1e7);
+  assertEqualFloat(1.86462e+15, SGP.getEthanol(), 1e12);
+}
+
+
+unittest(test_sref_H2)
+{
+  SGP30 SGP;
+
+  assertEqual(13119, SGP.getSrefH2());
+
+  SGP.setSrefH2(0);
+  assertEqual(0, SGP.getSrefH2());
+
+  SGP.setSrefH2(10000);
+  assertEqual(10000, SGP.getSrefH2());
+  
+  SGP.setSrefH2();
+  assertEqual(13119, SGP.getSrefH2());
+}
+
+
+unittest(test_sref_Ethanol)
+{
+  SGP30 SGP;
+
+  assertEqual(18472, SGP.getSrefEthanol());
+
+  SGP.setSrefEthanol(0);
+  assertEqual(0, SGP.getSrefEthanol());
+
+  SGP.setSrefEthanol(10000);
+  assertEqual(10000, SGP.getSrefEthanol());
+  
+  SGP.setSrefEthanol();
+  assertEqual(18472, SGP.getSrefEthanol());
 }
 
 
 unittest_main()
+
 
 // --------
