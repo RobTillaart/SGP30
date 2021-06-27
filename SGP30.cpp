@@ -1,7 +1,7 @@
 //
 //    FILE: SGP30.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.2
+// VERSION: 0.1.3
 //    DATE: 2021-06-24
 // PURPOSE: SGP30 library for Arduino
 //     URL: https://github.com/RobTillaart/SGP30
@@ -11,7 +11,7 @@
 //  0.1.0   2021-06-24  initial version
 //  0.1.1   2021-06-26  add get/setBaseline ++
 //  0.1.2   2021-06-26  experimental add units  H2 + Ethanol
-//
+//  0.1.3   2021-06-26  add get/setTVOCbaseline()
 
 
 #include "SGP30.h"
@@ -277,6 +277,28 @@ bool SGP30::getBaseline(uint16_t *CO2, uint16_t *TVOC)
   *CO2  =  _wire->read() << 8;
   *CO2  += _wire->read();
            _wire->read();        // skip crc
+  *TVOC =  _wire->read() << 8;
+  *TVOC += _wire->read();
+           _wire->read();        // skip crc
+  return true;
+}
+
+
+void SGP30::setTVOCBaseline(uint16_t TVOC)
+{
+  _command(0x2077, TVOC);
+}
+
+
+bool SGP30::getTVOCBaseline(uint16_t *TVOC)
+{
+  _command(0x20B3);
+  // TODO error handling
+  // TODO CRC
+  if (_wire->requestFrom(_address, (uint8_t)3) != 3)
+  {
+    return false;
+  }
   *TVOC =  _wire->read() << 8;
   *TVOC += _wire->read();
            _wire->read();        // skip crc

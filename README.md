@@ -23,7 +23,7 @@ The library supports 2 types of interfaces, a synchronous and an asynchronous in
 
 The CO2 and TVOC values can be read up to once per second (1 Hz). Ethanol and H2, the raw data can be sampled up to 40 Hz.
 
-It may take up to 10 seconds (maybe more) before the sensor produces real data.
+The first 15 seconds the sensor needs to stabilize. Thereafter one gets real data.
 
 
 #### I2C performance
@@ -109,6 +109,12 @@ Note: if the sensor has no reads done, these values tend to go to zero. This is 
 - **void setBaseline(uint16_t CO2, uint16_t TVOC)** sets the baseline values.
 
 
+For faster accurate results for the TVOC under bad air conditions, read **Inceptive Baseline for TVOC measurements**
+(not tested)
+- **bool getTVOCBaseline(uint16_t \*TVOC)** retrieves the TVOC start value from the sensor.
+- **void setTVOCBaseline(uint16_t TVOC)** sets the TVOC start value.
+
+
 ### Misc
 
 - **int lastError()** returns last error. (needs rework)
@@ -125,7 +131,7 @@ One should use these functions more as a relative indication than as an absolute
 - **float getH2()** gets the H2 concentration. Units ppm.
 - **float getEthanol()** gets the Ethanol concentration. Units ppm.
 
-The used references are based upon (1) averaging raw data in outside air at 22°C @ 1 meter and (2) the assumption that this is 0.4 resp 0.5 ppm. (Note only 1 significant digit) as mentioned is datasheet P2.
+The used references are based upon (1) averaging raw data in outside air at 22°C @ 1 meter and (2) the assumption that this is 0.4 resp 0.5 ppm. (Note only 1 significant digit) as mentioned in datasheet P2.
 
 - **void  setSrefH2(uint16_t s = 13119)** // 13119 is my measurement.
 - **uint16_t getSrefH2()** returns value set.
@@ -137,7 +143,6 @@ The used references are based upon (1) averaging raw data in outside air at 22°
 
 - redo **getID()**
 - redo **lastError()**
-- implement the TVOC starter baseline.
 - test test test ....
 - CRC handling
 - error handling

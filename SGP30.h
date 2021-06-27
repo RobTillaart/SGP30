@@ -2,7 +2,7 @@
 //
 //    FILE: SGP30.h
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.2
+// VERSION: 0.1.3
 //    DATE: 2021-06-24
 // PURPOSE: SGP30 library for Arduino
 //     URL: https://github.com/RobTillaart/SGP30
@@ -12,7 +12,7 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-#define SGP30_LIB_VERSION         (F("0.1.2"))
+#define SGP30_LIB_VERSION         (F("0.1.3"))
 
 #define SGP30_OK                  0x00
 
@@ -69,12 +69,11 @@ public:
 
   void     setBaseline(uint16_t CO2, uint16_t TVOC);
   bool     getBaseline(uint16_t *CO2, uint16_t *TVOC);
+  
+  // See Inceptive Baseline for TVOC measurements in data sheet
+  void     setTVOCBaseline(uint16_t TVOC);
+  bool     getTVOCBaseline(uint16_t *TVOC);
 
-/*
-  // faster startup
-  void     setTVOCStarter() {};  // 0x2077
-  void     getTVOCStarter() {};  // 0x20B3
-*/
 
   // experimental
   // 13119 = average raw measured outside 22°C  (example)

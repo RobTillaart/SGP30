@@ -34,6 +34,8 @@ setAbsHumidity	KEYWORD2
 
 setBaseline	KEYWORD2
 getBaseline	KEYWORD2
+setTVOCBaseline	KEYWORD2
+getTVOCBaseline	KEYWORD2
 
 setSrefH2	KEYWORD2
 getSrefH2	KEYWORD2
