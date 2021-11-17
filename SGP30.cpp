@@ -283,19 +283,19 @@ float SGP30::setRelHumidity(float T, float RH)  // P10
   // page 10 datasheet
   // AH = AbsoluteHumidity
   // uint16_t AH = 216.7 * RH/100 * 6.117 * exp((17.62 * T)/(243.12 + T)) / (273.15 + T);
-  float AbsoluteHumidity = (2.167 * 6.112) * RH ;
-  AbsoluteHumidity *= exp((17.62 * T)/(243.12 + T));
-  AbsoluteHumidity /=  (273.15 + T);
+  float absoluteHumidity = (2.167 * 6.112) * RH ;
+  absoluteHumidity *= exp((17.62 * T)/(243.12 + T));
+  absoluteHumidity /=  (273.15 + T);
 
-  setAbsHumidity(AbsoluteHumidity);
-  return AbsoluteHumidity;
+  setAbsHumidity(absoluteHumidity);
+  return absoluteHumidity;
 }
 
 
-void SGP30::setAbsHumidity(float AbsoluteHumidity)
+void SGP30::setAbsHumidity(float absoluteHumidity)
 {
-  uint16_t AH = AbsoluteHumidity;
-  uint8_t tmp = (AbsoluteHumidity - AH) * 256;
+  uint16_t AH = absoluteHumidity;
+  uint8_t tmp = (absoluteHumidity - AH) * 256;
   AH = (AH << 8) | tmp;
 
   _command(0x2061, AH);     // P 11

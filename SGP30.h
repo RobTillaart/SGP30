@@ -44,7 +44,7 @@ public:
   //                 not with async calls.
   uint32_t lastMeasurement() { return _lastTime; };
   // all == false ==> only TVOC and eCO2
-  // blocks 15 - 40 msec  (depends on param all).
+  // blocks 15 - 40 milliseconds  (depends on parameter all).
   bool     measure(bool all = false);
   
   // async interface
@@ -68,7 +68,7 @@ public:
   float    setRelHumidity(float T, float RH);  // P10
   // Absolute humidity in grams / m3
   // set Abs Hum to 0 to disables it...
-  void     setAbsHumidity(float AbsoluteHumidity);
+  void     setAbsHumidity(float absoluteHumidity);
 
   void     setBaseline(uint16_t CO2, uint16_t TVOC);
   bool     getBaseline(uint16_t *CO2, uint16_t *TVOC);
@@ -119,4 +119,6 @@ private:
   TwoWire*  _wire;
 };
 
+
 // -- END OF FILE --
+
