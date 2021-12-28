@@ -47,14 +47,6 @@ unittest_teardown()
 }
 
 
-unittest(test_constants)
-{
-  assertEqual(SGP30_OK,        0x00);
-  assertEqual(SGP30_ERROR_CRC, 0xFF);
-  assertEqual(SGP30_ERROR_I2C, 0xFE);
-}
-
-
 unittest(test_constructor)
 {
   SGP30 SGP;
@@ -69,7 +61,9 @@ unittest(test_constructor)
 
 unittest(test_constants)
 {
-  assertEqual(SGP30_OK, 0x00);
+  assertEqual(SGP30_OK,        0x00);
+  assertEqual(SGP30_ERROR_CRC, 0xFF);
+  assertEqual(SGP30_ERROR_I2C, 0xFE);
 }
 
 
