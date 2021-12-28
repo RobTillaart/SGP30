@@ -2,7 +2,7 @@
 //
 //    FILE: SGP30.h
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.4
+// VERSION: 0.1.5
 //    DATE: 2021-06-24
 // PURPOSE: SGP30 library for Arduino
 //     URL: https://github.com/RobTillaart/SGP30
@@ -12,11 +12,11 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-#define SGP30_LIB_VERSION         (F("0.1.4"))
+#define SGP30_LIB_VERSION               (F("0.1.5"))
 
-#define SGP30_OK                  0x00
-#define SGP30_ERROR_CRC           0xFF
-#define SGP30_ERROR_I2C           0xFE
+#define SGP30_OK                        0x00
+#define SGP30_ERROR_CRC                 0xFF
+#define SGP30_ERROR_I2C                 0xFE
 
 
 class SGP30
@@ -78,7 +78,7 @@ public:
   bool     getTVOCBaseline(uint16_t *TVOC);
 
 
-  // experimental
+  // EXPERIMENTAL
   // 13119 = average raw measured outside 22°C  (example)
   void      setSrefH2(uint16_t s = 13119)      { _srefH2 = s; };
   uint16_t  getSrefH2()                        { return _srefH2; };

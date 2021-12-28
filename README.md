@@ -110,13 +110,17 @@ The library caches the last read values, and these are the functions to access t
 
 Check the datasheet for operating range, figure 7.
 
-- **float setRelHumidity(float T, float RH)** sets the compensation for temperature (5-55°C) and **relative** humidity (10-95%). These values can be obtained e.g. from an SHT30, DHT22 or similar sensor. The function returns the absolute humidity. 
-- **void setAbsHumidity(float absoluteHumidity)** sets the compensation for **absolute** humidity. Concentration is in gram per cubic meter (g/m3)
+- **float setRelHumidity(float T, float RH)** sets the compensation for temperature (5-55°C) and **relative** humidity (10-95%). 
+These values can be obtained e.g. from an SHT30, DHT22 or similar sensor. The function returns the absolute humidity. 
+- **void setAbsHumidity(float absoluteHumidity)** sets the compensation for **absolute** humidity. 
+Concentration is in gram per cubic meter (g/m3)
 
 
 ### Baseline functions
 
-The baseline functions give the sensor a reference value. After running in a known condition e.g. outside in open air, one can get the baseline values as a sort of calibration. Please read the datasheet carefully before using these functions.
+The baseline functions give the sensor a reference value. 
+After running in a known condition e.g. outside in open air, one can get the baseline values as a sort of calibration. 
+Please read the datasheet carefully before using these functions.
 
 Note: if the sensor has no reads done, these values tend to go to zero. This is because the baselines are based upon recent reads.
 
@@ -151,19 +155,9 @@ The used references are based upon (1) averaging raw data in outside air at 22°
 
 - **void  setSrefH2(uint16_t s = 13119)** // 13119 is my measurement.
 - **uint16_t getSrefH2()** returns value set.
-- **void setSrefEthanol(uint16_t s = 18472)** // 18472 is my measurement
-- **uint16_t getSrefEthanol()** returns value set
+- **void setSrefEthanol(uint16_t s = 18472)** // 18472 is my measurement.
+- **uint16_t getSrefEthanol()** returns value set.
 
-
-## Todo
-
-- redo **getID()**
-- test test test ....
-
-
-The CRC checking + error handling (since 0.1.4) adds around 330 bytes PROGMEM on an UNO.
-There might be a need for a minimal class that only reads CO2 and TVOC, no baselines etc.
-for the smallest platforms. 
 
 
 ## Operational
@@ -174,4 +168,18 @@ See examples
 ## Links
 
 https://www.adafruit.com/product/3709 - the sensor.
+
+
+## Future
+
+- improve documentation
+- redo **getID()**
+- test test test ....
+- make defines for the magic numbers (commands)
+- 
+
+
+The CRC checking + error handling (since 0.1.4) adds around 330 bytes PROGMEM on an UNO.
+There might be a need for a minimal class that only reads CO2 and TVOC, no baselines etc.
+for the smallest platforms. 
 
