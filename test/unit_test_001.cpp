@@ -38,16 +38,25 @@
 
 unittest_setup()
 {
+  fprintf(stderr, "SGP30_LIB_VERSION: %s\n", (char *) SGP30_LIB_VERSION);
 }
+
 
 unittest_teardown()
 {
 }
 
 
+unittest(test_constants)
+{
+  assertEqual(SGP30_OK,        0x00);
+  assertEqual(SGP30_ERROR_CRC, 0xFF);
+  assertEqual(SGP30_ERROR_I2C, 0xFE);
+}
+
+
 unittest(test_constructor)
 {
-  fprintf(stderr, "VERSION: %s\n", SGP30_LIB_VERSION);
   SGP30 SGP;
   
   assertTrue(SGP.begin());
