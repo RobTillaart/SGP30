@@ -1,7 +1,7 @@
 //
 //    FILE: SGP30.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.5
+// VERSION: 0.1.6
 //    DATE: 2021-06-24
 // PURPOSE: SGP30 library for Arduino
 //     URL: https://github.com/RobTillaart/SGP30
