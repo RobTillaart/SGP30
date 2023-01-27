@@ -297,7 +297,7 @@ void SGP30::setAbsHumidity(float absoluteHumidity)
 
 void SGP30::setBaseline(uint16_t CO2, uint16_t TVOC)
 {
-  _command(0x201E, CO2, TVOC);
+  _command(0x201E, TVOC, CO2);
 }
 
 
