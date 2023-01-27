@@ -1,7 +1,7 @@
 //
 //    FILE: SGP30.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.6
+// VERSION: 0.2.0
 //    DATE: 2021-06-24
 // PURPOSE: SGP30 library for Arduino
 //     URL: https://github.com/RobTillaart/SGP30
@@ -157,13 +157,13 @@ bool SGP30::measure(bool all)      //  this is the workhorse
   _lastTime = millis();
 
   request();
-  delay(12);
+  delay(12);  //  blocking!!
   read();
 
   if (not all) return true;
 
   requestRaw();
-  delay(25);
+  delay(25);  //  blocking!!
   readRaw();
   return true;
 }
@@ -248,7 +248,7 @@ bool SGP30::readRaw()
 }
 
 
-//  experimental - datasheet Page 2 
+//  experimental - datasheet Page 2
 //  1.953125e-3 = 1/512
 float SGP30::getH2()
 {
@@ -359,7 +359,7 @@ bool SGP30::getTVOCBaseline(uint16_t *TVOC)
 
 /////////////////////////////////////////////////////
 //
-//  MISCELANEOUS
+//  MISCELLANEOUS
 //
 int SGP30::lastError()
 {
@@ -421,7 +421,7 @@ uint8_t SGP30::_CRC8(uint16_t data)
   val[1] = data & 0xFF;
 
   uint8_t crc = 0xFF;             //  start value
-  for(uint8_t i = 0; i < 2; i++) 
+  for(uint8_t i = 0; i < 2; i++)
   {
     crc ^= val[i];
     for (uint8_t b = 8; b > 0; b--)
