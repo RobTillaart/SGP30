@@ -3,7 +3,7 @@
 //  AUTHOR: Rob Tillaart
 // VERSION: 0.2.0
 //    DATE: 2021-06-24
-// PURPOSE: SGP30 library for Arduino
+// PURPOSE: Arduino library for SGP30 environment sensor.
 //     URL: https://github.com/RobTillaart/SGP30
 //          https://www.adafruit.com/product/3709
 

@@ -1,9 +1,9 @@
 //
 //    FILE: unit_test_001.cpp
 //  AUTHOR: Rob Tillaart
-//    DATE: 2021-01-07
-// PURPOSE: unit tests for the SET library
-//          https://github.com/RobTillaart/SET
+//    DATE: 2021-06-24
+// PURPOSE: unit tests for Arduino library for SGP30 environment sensor.
+//          https://github.com/RobTillaart/SGP30
 //          https://github.com/Arduino-CI/arduino_ci/blob/master/REFERENCE.md
 //
 

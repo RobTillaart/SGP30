@@ -1,7 +1,7 @@
 {
   "name": "SGP30",
   "keywords": "CO2, H2, VOC, TVOC, Ethanol",
-  "description": "Library for SGP30 environment sensor.",
+  "description": "Arduino library for SGP30 environment sensor.",
   "authors":
   [
     {
