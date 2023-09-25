@@ -1,7 +1,7 @@
 //
 //    FILE: SGP30.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.2.0
+// VERSION: 0.2.1
 //    DATE: 2021-06-24
 // PURPOSE: Arduino library for SGP30 environment sensor.
 //     URL: https://github.com/RobTillaart/SGP30
@@ -33,7 +33,6 @@ SGP30::SGP30(TwoWire *wire)
 #if defined (ESP8266) || defined(ESP32)
 bool SGP30::begin(uint8_t dataPin, uint8_t clockPin)
 {
-  _wire      = &Wire;
   if ((dataPin < 255) && (clockPin < 255))
   {
     _wire->begin(dataPin, clockPin);
